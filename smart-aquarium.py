@@ -17,8 +17,9 @@ sleep_interval = 5
 with open(keys_file) as f:
     for line in f:
         name, var = line.partition("=")[::2]
-        keys[name.strip()] = var
+        keys[name.strip()] = var.strip()
 
+print(keys)
 pubnub = Pubnub(keys["pub"], keys["sub"])
 
 # Various callbacks definition
@@ -30,7 +31,7 @@ def error(message):
   
 def connect(message):
     print("CONNECTED")
-    print(pubnub.publish(channel='my_channel', message='Hello from the PubNub Python SDK'))
+    print(pubnub.publish(channel=channel, message='Hello from the PubNub Python SDK'))
   
 def reconnect(message):
     print("RECONNECTED")
