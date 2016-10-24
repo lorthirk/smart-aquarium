@@ -1,7 +1,6 @@
 from pubnub import Pubnub
 from w1thermsensor import W1ThermSensor
 import time
-from datetime import datetime
 
 # init temperature probe library
 sensor = W1ThermSensor()
@@ -43,6 +42,6 @@ def disconnect(message):
 while (True):
     temperature = {}
     temperature["value"] = sensor.get_temperature()
-    temperature["date"] = datetime.now().date().isoformat()
+    temperature["date"] = time.strftime("%Y-%m-%d %H:%M:%S")
     pubnub.publish(channel, temperature, error=error)
     time.sleep(sleep_interval)
